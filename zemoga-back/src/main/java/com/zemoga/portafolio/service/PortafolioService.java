@@ -1,10 +1,13 @@
 package com.zemoga.portafolio.service;
 
+import java.lang.reflect.Field;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 
 import com.zemoga.portafolio.common.PortfolioDTO;
 import com.zemoga.portafolio.common.entity.Portfolio;
@@ -35,33 +38,15 @@ public class PortafolioService {
     return portfolioRepository.findAll();
   }
 
-  public void updatePortafolio(long id, PortfolioDTO dto) {
+  public void updatePortafolio(long id, Map<Object, Object> entityResource) {
     Optional<Portfolio> port = portfolioRepository.findById(id);
     if (port.isPresent()) {
-      if (dto.getDescription() != null) {
-        port.get().setDescription(dto.getDescription());
-      }
-      if (dto.getNames() != null) {
-        port.get().setNames(dto.getNames());
-      }
-      if (dto.getExperienceSummary() != null) {
-        port.get().setExperienceSummary(dto.getExperienceSummary());
-      }
-      if (dto.getTittle() != null) {
-        port.get().setTittle(dto.getTittle());
-      }
-      if (dto.getEmail() != null) {
-        port.get().setEmail(dto.getEmail());
-      }
-      if (dto.getLastNames() != null) {
-        port.get().setLastNames(dto.getLastNames());
-      }
-      if (dto.getTwitterUsername() != null) {
-        port.get().setTwitterUsername(dto.getTwitterUsername());
-      }
-      if (dto.getImage() != null) {
-        port.get().setImage(dto.getImage());
-      }
+      entityResource.forEach(
+          (key, value) -> {
+            Field field = ReflectionUtils.findField(Portfolio.class, (String) key);
+            field.setAccessible(true);
+            ReflectionUtils.setField(field, port.get(), value);
+          });
       portfolioRepository.save(port.get());
     }
   }

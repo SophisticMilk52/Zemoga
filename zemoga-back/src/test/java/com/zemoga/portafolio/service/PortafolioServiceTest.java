@@ -5,7 +5,9 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.junit.Before;
@@ -57,8 +59,9 @@ public class PortafolioServiceTest {
 
   @Test
   public void updatePortafolioTest() {
+    Map<Object, Object> map = new HashMap();
     when(portfolioRepository.findById(any(Long.class))).thenReturn(Optional.of(portfolio));
-    portafolioService.updatePortafolio(2L, portfolioDto);
+    portafolioService.updatePortafolio(2L, map);
     assertEquals("Raul", portfolioRepository.findById(2L).get().getNames());
   }
 }

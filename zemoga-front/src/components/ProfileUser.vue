@@ -67,6 +67,7 @@ export default {
           this.tittle = this.user.tittle;
           this.lastNames = this.user.lastNames;
           this.email = this.user.email;
+          this.lista=this.user.status;
         });
     },
     submit() {

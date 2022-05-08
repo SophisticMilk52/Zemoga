@@ -1,6 +1,7 @@
 package com.zemoga.portafolio.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -42,7 +43,7 @@ public class PortfolioRestController {
 
   @PatchMapping("/editPortfolio/{id}")
   public ResponseEntity<String> updatePortafolio(
-      @PathVariable long id, @RequestBody PortfolioDTO entityResource) {
+      @PathVariable int id, @RequestBody Map<Object, Object> entityResource) {
     portfolioService.updatePortafolio(id, entityResource);
     return new ResponseEntity<>("Se actualizo correctamente el producto", HttpStatus.OK);
   }

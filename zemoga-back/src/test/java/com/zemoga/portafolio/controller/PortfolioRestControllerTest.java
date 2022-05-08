@@ -4,6 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -37,9 +40,7 @@ public class PortfolioRestControllerTest {
 
   @Test
   public void updatePortafolioTest() {
-
-    assertEquals(
-        HttpStatus.OK,
-        portfolioRestController.updatePortafolio(2L, new PortfolioDTO()).getStatusCode());
+    Map<Object, Object> map = new HashMap();
+    assertEquals(HttpStatus.OK, portfolioRestController.updatePortafolio(2, map).getStatusCode());
   }
 }
