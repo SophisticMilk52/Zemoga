@@ -3,8 +3,11 @@
     <div class="twitter">
       <img :src="image" />
       <div class="tweets">
+        <h3>Lista twiter</h3>
         <ul>
-          <li v-for="(tweet, index) in lista" :key="index"  ><div v-if="index < 5">{{ tweet.user.screen_name}}</div></li>
+          <li v-for="(tweet, index) in lista" :key="index">
+            <div v-if="index < 5"><img :src="tweet.user.miniProfileImageURL"/><p>{{tweet.user.screenName}}</p><p>{{ tweet.user.description }}</p></div>
+          </li>
         </ul>
       </div>
     </div>
@@ -32,11 +35,16 @@ export default {
   props: {
     msg: String,
   },
-  
+
   data() {
     return {
       id: "2",
-      lista: [],
+      lista: null,
+      elmento1: null,
+      elmento2: null,
+      elmento3: null,
+      elmento4: null,
+      elmento5: null,
       user: null,
       twitterUser: "",
       names: "",
@@ -51,14 +59,13 @@ export default {
   },
   mounted() {
     this.consumeUser();
-    this.consumeTwitter();
   },
   methods: {
     consumeUser() {
       axios
         .get(`http://localhost:8080/getPortafolio/${this.id}`)
-        .then(response => {
-          console.log(response);
+        .then((response) => {
+          console.log(response.data);
           this.user = response.data;
           this.names = this.user.names;
           this.image = this.user.image;
@@ -67,43 +74,13 @@ export default {
           this.tittle = this.user.tittle;
           this.lastNames = this.user.lastNames;
           this.email = this.user.email;
-          this.lista=this.user.status;
+          this.lista = response.data.twitterList;
+          console.log(response.data.twitterList);
         });
     },
     submit() {
       this.id = this.change;
       this.consumeUser();
-    },
-    consumeTwitter() {
-      // var params = {
-      //   algorithm: "HMAC-SHA1",
-      //   key: "KRy7l0v8wex3w8Sy5zThai3Ea",
-      //   secret: "X2eBm0Y21kYEuR74W3Frqc2JVIizOj8Q1EVGatDsEVVEJo0ucu",
-      //   token: "1220032047516921859-otvXjhExyUTZ5GLxssc9h5ORqtPZja",
-      //   tokenSecret: "tmJKqM4ORfQW6CH7wIVV8uKNpmSEmeFAP8lYwGb19uYjj",
-      //   screen_name: this.names,
-      // };
-      // addOAuthInterceptor(axios.create(), params);
-      var config = {
-        method: "get",
-        url: `https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=jesus&oauth_consumer_key=KRy7l0v8wex3w8Sy5zThai3Ea&oauth_token=1220032047516921859-otvXjhExyUTZ5GLxssc9h5ORqtPZja&oauth_signature_method=HMAC-SHA256&oauth_timestamp=1651889436&oauth_nonce=fecUzOg2LWM&oauth_version=1.0&oauth_signature=zlpjJpmeSAaQl8N0o9tJtDw2DwDOBSOvkF%2BhX12uxkE%3D`,
-        headers: {
-          Cookie:
-            'guest_id=v1%3A165185501896789976; guest_id_ads=v1%3A165185501896789976; guest_id_marketing=v1%3A165185501896789976; personalization_id="v1_yffO4IdDVAyjwn52SoxIDQ=="; lang=en',
-        },
-      };
-
-      axios(config)
-        .then(response =>{
-          console.log(this.lista);
-          console.log(response.data);
-          console.log(response.data[0]);
-          console.log(typeof response.data[0]);
-          this.lista = response.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
     },
   },
 };
@@ -130,8 +107,14 @@ a {
   align-items: center;
   flex-direction: row;
   justify-content: space-between;
+  background-color: grey;
+  width: auto;
+  height: auto;
+
 }
 #twitter {
   display: flex;
+  background-color: #42b983;
+    float: left
 }
 </style>

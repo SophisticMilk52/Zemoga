@@ -16,6 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
 import com.zemoga.portafolio.common.PortfolioDTO;
+import com.zemoga.portafolio.common.utils.TwitterApi;
 import com.zemoga.portafolio.service.PortafolioService;
 
 import twitter4j.TwitterException;
@@ -26,6 +27,7 @@ public class PortfolioRestControllerTest {
 
   @Mock private PortafolioService portafolioService;
   @InjectMocks private PortfolioRestController portfolioRestController;
+  @Mock private TwitterApi twitterApi;
 
   @Test
   public void getPortafolioTest() throws TwitterException {

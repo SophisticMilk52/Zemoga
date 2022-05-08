@@ -31,5 +31,5 @@ public class PortfolioDTO implements Serializable {
 
   private String twitterUsername;
 
-  private List<Status> status;
+  private List<Status> twitterList;
 }

@@ -18,7 +18,6 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.zemoga.portafolio.common.PortfolioDTO;
 import com.zemoga.portafolio.common.entity.Portfolio;
 import com.zemoga.portafolio.common.repository.PortfolioRepository;
 
@@ -29,7 +28,7 @@ public class PortafolioServiceTest {
   @InjectMocks private PortafolioService portafolioService;
 
   private Portfolio portfolio = new Portfolio();
-  private PortfolioDTO portfolioDto = new PortfolioDTO();
+
   private List<Portfolio> list = new ArrayList<>();
 
   @Before
@@ -39,9 +38,6 @@ public class PortafolioServiceTest {
     portfolio.setIdPortfolio(2);
     portfolio.setNames("Alejandro");
     list.add(portfolio);
-    portfolioDto.setDescription("descripcion");
-    portfolioDto.setEmail("email@correo.com");
-    portfolioDto.setNames("Raul");
   }
 
   @Test
@@ -59,7 +55,8 @@ public class PortafolioServiceTest {
 
   @Test
   public void updatePortafolioTest() {
-    Map<Object, Object> map = new HashMap();
+    Map<Object, Object> map = new HashMap<Object, Object>();
+    map.put("names", "Raul");
     when(portfolioRepository.findById(any(Long.class))).thenReturn(Optional.of(portfolio));
     portafolioService.updatePortafolio(2L, map);
     assertEquals("Raul", portfolioRepository.findById(2L).get().getNames());

@@ -32,7 +32,7 @@ public class PortfolioRestController {
   public ResponseEntity<PortfolioDTO> getPortafolio(@PathVariable long id) throws TwitterException {
     PortfolioDTO port = portfolioService.getPortafolios(id);
     List<Status> list = twitterApi.consumeTwitterApi(port.getNames());
-    port.setStatus(list);
+    port.setTwitterList(list);
     return new ResponseEntity<PortfolioDTO>(port, HttpStatus.OK);
   }
 
