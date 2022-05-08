@@ -14,10 +14,19 @@ import com.zemoga.portafolio.common.repository.PortfolioRepository;
 public class PortafolioService {
   @Autowired private PortfolioRepository portfolioRepository;
 
-  public Portfolio getPortafolios(long id) {
+  public PortfolioDTO getPortafolios(long id) {
     Optional<Portfolio> portfolio = portfolioRepository.findById(id);
+    PortfolioDTO dto = new PortfolioDTO();
     if (portfolio.isPresent()) {
-      return portfolio.get();
+      dto.setDescription(portfolio.get().getDescription());
+      dto.setNames(portfolio.get().getNames());
+      dto.setExperienceSummary(portfolio.get().getExperienceSummary());
+      dto.setTittle(portfolio.get().getTittle());
+      dto.setEmail(portfolio.get().getEmail());
+      dto.setLastNames(portfolio.get().getLastNames());
+      dto.setTwitterUsername(portfolio.get().getTwitterUsername());
+      dto.setImage(portfolio.get().getImage());
+      return dto;
     }
     return null;
   }
@@ -29,14 +38,30 @@ public class PortafolioService {
   public void updatePortafolio(long id, PortfolioDTO dto) {
     Optional<Portfolio> port = portfolioRepository.findById(id);
     if (port.isPresent()) {
-      port.get().setDescription(dto.getDescription());
-      port.get().setNames(dto.getNames());
-      port.get().setExperienceSummary(dto.getExperienceSummary());
-      port.get().setTittle(dto.getTittle());
-      port.get().setEmail(dto.getEmail());
-      port.get().setLastNames(dto.getLastNames());
-      port.get().setTwitterUsername(dto.getTwitterUsername());
-      port.get().setImage(dto.getImage());
+      if (dto.getDescription() != null) {
+        port.get().setDescription(dto.getDescription());
+      }
+      if (dto.getNames() != null) {
+        port.get().setNames(dto.getNames());
+      }
+      if (dto.getExperienceSummary() != null) {
+        port.get().setExperienceSummary(dto.getExperienceSummary());
+      }
+      if (dto.getTittle() != null) {
+        port.get().setTittle(dto.getTittle());
+      }
+      if (dto.getEmail() != null) {
+        port.get().setEmail(dto.getEmail());
+      }
+      if (dto.getLastNames() != null) {
+        port.get().setLastNames(dto.getLastNames());
+      }
+      if (dto.getTwitterUsername() != null) {
+        port.get().setTwitterUsername(dto.getTwitterUsername());
+      }
+      if (dto.getImage() != null) {
+        port.get().setImage(dto.getImage());
+      }
       portfolioRepository.save(port.get());
     }
   }

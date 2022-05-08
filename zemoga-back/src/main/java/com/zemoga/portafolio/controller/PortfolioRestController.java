@@ -14,17 +14,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.zemoga.portafolio.common.PortfolioDTO;
 import com.zemoga.portafolio.common.entity.Portfolio;
+import com.zemoga.portafolio.common.utils.TwitterApi;
 import com.zemoga.portafolio.service.PortafolioService;
+
+import twitter4j.Status;
+import twitter4j.TwitterException;
 
 @RestController
 @RequestMapping("/")
 public class PortfolioRestController {
 
   @Autowired private PortafolioService portfolioService;
+  @Autowired private TwitterApi twitterApi;
 
   @GetMapping("/getPortafolio/{id}")
-  public ResponseEntity<Portfolio> getPortafolio(@PathVariable long id) {
-    return new ResponseEntity<Portfolio>(portfolioService.getPortafolios(id), HttpStatus.OK);
+  public ResponseEntity<PortfolioDTO> getPortafolio(@PathVariable long id) throws TwitterException {
+    PortfolioDTO port = portfolioService.getPortafolios(id);
+    List<Status> list = twitterApi.consumeTwitterApi(port.getNames());
+    port.setStatus(list);
+    return new ResponseEntity<PortfolioDTO>(port, HttpStatus.OK);
   }
 
   @GetMapping("/getAllPortafolios")

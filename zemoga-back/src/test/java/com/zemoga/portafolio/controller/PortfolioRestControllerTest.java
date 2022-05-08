@@ -13,8 +13,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 
 import com.zemoga.portafolio.common.PortfolioDTO;
-import com.zemoga.portafolio.common.entity.Portfolio;
 import com.zemoga.portafolio.service.PortafolioService;
+
+import twitter4j.TwitterException;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
@@ -24,8 +25,8 @@ public class PortfolioRestControllerTest {
   @InjectMocks private PortfolioRestController portfolioRestController;
 
   @Test
-  public void getPortafolioTest() {
-    when(portafolioService.getPortafolios(any(Long.class))).thenReturn(new Portfolio());
+  public void getPortafolioTest() throws TwitterException {
+    when(portafolioService.getPortafolios(any(Long.class))).thenReturn(new PortfolioDTO());
     assertEquals(HttpStatus.OK, portfolioRestController.getPortafolio(2L).getStatusCode());
   }
 
@@ -37,7 +38,6 @@ public class PortfolioRestControllerTest {
   @Test
   public void updatePortafolioTest() {
 
-    // verify(portafolioService).updatePortafolio(any(Long.class), any(PortfolioDTO.class));
     assertEquals(
         HttpStatus.OK,
         portfolioRestController.updatePortafolio(2L, new PortfolioDTO()).getStatusCode());
