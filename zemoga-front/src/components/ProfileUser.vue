@@ -14,6 +14,7 @@
 
     <div class="userInfo">
       <h1>Title: {{ tittle }}</h1>
+      <div class="info">
       <h2>Name: {{ names }} {{ lastNames }}</h2>
       <h3>Email: {{ email }}</h3>
       <p>My work experience</p>
@@ -23,6 +24,7 @@
         <input type="text" v-model="change" placeholder="Insert Id" />
         <button type="submit">Submit ID</button>
       </form>
+      </div>
     </div>
   </div>
 </template>
@@ -92,6 +94,9 @@ h3 {
   margin: 40px 0 0;
 }
 ul {
+    display: flex;
+      align-items: center;
+  flex-direction: column;
   list-style-type: none;
   padding: 0;
 }
@@ -102,19 +107,46 @@ li {
 a {
   color: #42b983;
 }
-#hello {
+img{
+  max-width: 100%;
+  max-height: 100%;
+}
+.hello {
   display: flex;
   align-items: center;
   flex-direction: row;
-  justify-content: space-between;
-  background-color: grey;
+  justify-content: space-evenly;
+  background-color: whitesmoke;
   width: auto;
   height: auto;
 
 }
-#twitter {
+.twitter {
   display: flex;
-  background-color: #42b983;
-    float: left
+  flex-direction: column;
+}
+.tweets{
+    display: flex;
+      align-items: center;
+  flex-direction: column;
+  background-color: aqua;
+    width: auto;
+  height: auto;
+}
+
+.userInfo{
+  display: flex;
+  width: auto;
+  flex-direction: column;
+  height: auto;
+  justify-content: space-between;
+}
+.info{
+   display: flex;
+  width: auto;
+  flex-direction: column;
+  height: auto;
+  background-color:white ;
+  justify-content: space-between;
 }
 </style>
