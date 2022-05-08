@@ -42,7 +42,13 @@ public class PortfolioRestControllerTest {
 
   @Test
   public void updatePortafolioTest() {
-    Map<Object, Object> map = new HashMap();
+    Map<Object, Object> map = new HashMap<>();
     assertEquals(HttpStatus.OK, portfolioRestController.updatePortafolio(2, map).getStatusCode());
+  }
+
+  @Test
+  public void addPortfolioTest() {
+    assertEquals(
+        HttpStatus.OK, portfolioRestController.addPortfolio(new PortfolioDTO()).getStatusCode());
   }
 }

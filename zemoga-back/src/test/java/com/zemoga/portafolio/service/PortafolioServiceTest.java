@@ -1,6 +1,7 @@
 package com.zemoga.portafolio.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -18,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import com.zemoga.portafolio.common.PortfolioDTO;
 import com.zemoga.portafolio.common.entity.Portfolio;
 import com.zemoga.portafolio.common.repository.PortfolioRepository;
 
@@ -51,6 +53,12 @@ public class PortafolioServiceTest {
     portafolioService.getAllPortafolios();
     when(portfolioRepository.findAll()).thenReturn(list);
     assertEquals(1, portafolioService.getAllPortafolios().size());
+  }
+
+  @Test
+  public void addPortfolioTest() {
+    when(portfolioRepository.save(any(Portfolio.class))).thenReturn(new Portfolio());
+    assertNotNull(portafolioService.addPortfolio(new PortfolioDTO()));
   }
 
   @Test

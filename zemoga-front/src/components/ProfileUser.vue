@@ -3,7 +3,7 @@
     <div class="twitter">
       <img :src="image" />
       <div class="tweets">
-        <h3>Lista twiter</h3>
+        <h3>{{ names }}'s Timeline</h3>
         <ul>
           <li v-for="(tweet, index) in lista" :key="index">
             <div v-if="index < 5"><img :src="tweet.user.miniProfileImageURL"/><p>{{tweet.user.screenName}}</p><p>{{ tweet.user.description }}</p></div>

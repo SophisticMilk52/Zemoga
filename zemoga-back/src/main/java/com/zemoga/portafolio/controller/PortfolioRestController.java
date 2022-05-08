@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,6 +40,11 @@ public class PortfolioRestController {
   @GetMapping("/getAllPortafolios")
   public ResponseEntity<List<Portfolio>> getAllPortafolios() {
     return new ResponseEntity<List<Portfolio>>(portfolioService.getAllPortafolios(), HttpStatus.OK);
+  }
+
+  @PostMapping("/addPortfolio")
+  public ResponseEntity<Portfolio> addPortfolio(@RequestBody PortfolioDTO entityResource) {
+    return new ResponseEntity<>(portfolioService.addPortfolio(entityResource), HttpStatus.OK);
   }
 
   @PatchMapping("/editPortfolio/{id}")

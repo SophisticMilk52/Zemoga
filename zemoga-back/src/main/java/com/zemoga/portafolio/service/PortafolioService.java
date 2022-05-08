@@ -38,6 +38,19 @@ public class PortafolioService {
     return portfolioRepository.findAll();
   }
 
+  public Portfolio addPortfolio(PortfolioDTO dto) {
+    Portfolio portfolio = new Portfolio();
+    portfolio.setDescription(dto.getDescription());
+    portfolio.setEmail(dto.getEmail());
+    portfolio.setImage(dto.getImage());
+    portfolio.setExperienceSummary(dto.getExperienceSummary());
+    portfolio.setLastNames(dto.getLastNames());
+    portfolio.setNames(dto.getNames());
+    portfolio.setTittle(dto.getTittle());
+    portfolio.setTwitterUsername(dto.getTwitterUsername());
+    return portfolioRepository.save(portfolio);
+  }
+
   public void updatePortafolio(long id, Map<Object, Object> entityResource) {
     Optional<Portfolio> port = portfolioRepository.findById(id);
     if (port.isPresent()) {
