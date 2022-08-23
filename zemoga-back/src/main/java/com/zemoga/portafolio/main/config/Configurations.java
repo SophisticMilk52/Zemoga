@@ -1,4 +1,4 @@
-package com.zemoga.portafolio;
+package com.zemoga.portafolio.main.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

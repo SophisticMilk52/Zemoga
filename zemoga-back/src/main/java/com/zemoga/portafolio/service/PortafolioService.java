@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ReflectionUtils;
@@ -31,13 +33,14 @@ public class PortafolioService {
       dto.setImage(portfolio.get().getImage());
       return dto;
     }
-    return null;
+    return new PortfolioDTO();
   }
 
   public List<Portfolio> getAllPortafolios() {
     return portfolioRepository.findAll();
   }
 
+  @Transactional
   public Portfolio addPortfolio(PortfolioDTO dto) {
     Portfolio portfolio = new Portfolio();
     portfolio.setDescription(dto.getDescription());
@@ -51,6 +54,7 @@ public class PortafolioService {
     return portfolioRepository.save(portfolio);
   }
 
+  @Transactional
   public void updatePortafolio(long id, Map<Object, Object> entityResource) {
     Optional<Portfolio> port = portfolioRepository.findById(id);
     if (port.isPresent()) {
